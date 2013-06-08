@@ -12,7 +12,7 @@ void testApp::setup(){
     // but until now you have to do something like this:
 
     
-    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::ServerOptions::defaultServerOptions();
     options.port = 9092;
     options.protocol = "of-protocol";
     bConnected = server.setup( options );

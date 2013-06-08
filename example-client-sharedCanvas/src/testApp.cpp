@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void testApp::setup(){
    
-    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
+    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::ClientOptions::defaultClientOptions();
     options.port = 9092; 
     options.protocol = "of-protocol";
     bConnected = client.connect( options );
