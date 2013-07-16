@@ -78,9 +78,10 @@ namespace ofxLibwebsockets {
             } else {
             }
         }
-        
+      
+//      ofxLogVerbose() << getServerCallbackReason(reason) << endl;
         ofLog( OF_LOG_VERBOSE, getServerCallbackReason(reason) );
-        
+      
         if (reason == LWS_CALLBACK_ESTABLISHED){
             if ( reactor != NULL ){
                 *conn_ptr = new Connection(reactor, protocol);
@@ -135,6 +136,22 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     Server::Server(){
+      time_t rawtime;
+      struct tm * timeinfo;
+      char buffer [40];
+      time ( &rawtime );
+      timeinfo = localtime ( &rawtime );
+      strftime (buffer,40,"%Y-%m-%d",timeinfo);
+      string logPath=buffer;
+      ofxLogSetLogLevel(LOG_VERBOSE);
+      if (!ofDirectory("logs").exists()){
+        ofDirectory("logs").create(true);
+      }
+      ofxLogSetLogToFile(true, ofToDataPath("logs/"+logPath+".log"));
+      ofxLogSetLogLineNumber(true);
+      ofxLogSetLogCaller(true);
+      ofxLogSetLogOptions(LOG_USE_TIME | LOG_USE_CALL | LOG_USE_TYPE | LOG_USE_PADD | LOG_USE_FILE);
+      
         context = NULL;
         waitMillis = 50;
         reactors.push_back(this);
@@ -150,7 +167,8 @@ namespace ofxLibwebsockets {
         defaultOptions.bUseSSL  = bUseSSL;
         
         if ( defaultOptions.port == 80 && defaultOptions.bUseSSL == true ){
-            ofLog( OF_LOG_WARNING, "SSL IS NOT USUALLY RUN OVER DEFAULT PORT (80). THIS MAY NOT WORK!");
+          ofxLogWarning() << "SSL IS NOT USUALLY RUN OVER DEFAULT PORT (80). THIS MAY NOT WORK!" << endl;
+//            ofLog( OF_LOG_WARNING, "SSL IS NOT USUALLY RUN OVER DEFAULT PORT (80). THIS MAY NOT WORK!");
         }
         
         return setup( defaultOptions );
@@ -230,7 +248,8 @@ namespace ofxLibwebsockets {
         //context = libwebsocket_create_context( port, NULL, &lws_protocols[0], libwebsocket_internal_extensions, sslCert, sslKey, /*"",*/ -1, -1, opts, NULL);
         
         if (context == NULL){
-            std::cerr << "libwebsocket init failed" << std::endl;
+          ofxLogError() << "libwebsocket init failed" << endl;
+//            std::cerr << "libwebsocket init failed" << std::endl;
             return false;
         } else {
             startThread(true, false); // blocking, non-verbose        
@@ -281,7 +300,7 @@ namespace ofxLibwebsockets {
                 }
             }
         }
-        if ( !bFound ) ofLog( OF_LOG_ERROR, "Connection not found!" );
+        if ( !bFound ) ofxLogError() << "Connection not found!" << endl;
     }
     
     //getters

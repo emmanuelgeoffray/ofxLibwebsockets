@@ -8,6 +8,7 @@
 
 #include "ofxLibwebsockets/Client.h"
 #include "ofxLibwebsockets/Util.h"
+
 namespace ofxLibwebsockets {
 // CLIENT CALLBACK
     static string getClientCallbackReason( int reason ){
@@ -68,9 +69,9 @@ namespace ofxLibwebsockets {
             } else {
             }
         }
-        
+      
+//      ofxLogVerbose() << getClientCallbackReason(reason) << endl;
         ofLog( OF_LOG_VERBOSE, getClientCallbackReason(reason) );
-        
         if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED ){
         } else if (reason == LWS_CALLBACK_CLOSED){
         }
@@ -113,6 +114,21 @@ namespace ofxLibwebsockets {
     }
 
     Client::Client(){
+      time_t rawtime;
+      struct tm * timeinfo;
+      char buffer [40];
+      time ( &rawtime );
+      timeinfo = localtime ( &rawtime );
+      strftime (buffer,40,"%Y-%m-%d",timeinfo);
+      string logPath=buffer;
+      ofxLogSetLogLevel(LOG_VERBOSE);
+      if (!ofDirectory("logs").exists()){
+        ofDirectory("logs").create(true);
+      }
+      ofxLogSetLogToFile(true, ofToDataPath("logs/"+logPath+".log"));
+      ofxLogSetLogLineNumber(true);
+      ofxLogSetLogCaller(true);
+      ofxLogSetLogOptions(LOG_USE_TIME | LOG_USE_CALL | LOG_USE_TYPE | LOG_USE_PADD | LOG_USE_FILE);
         context = NULL;
         connection = NULL;
         waitMillis = 50;
@@ -144,7 +160,8 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     bool Client::connect ( ClientOptions options ){
-        ofLog( OF_LOG_VERBOSE, "connect: "+options.host+":"+ofToString(options.port)+options.channel+":"+ofToString(options.bUseSSL) );
+      ofxLogVerbose() << "connect: "+options.host+":"+ofToString(options.port)+options.channel+":"+ofToString(options.bUseSSL) << endl;
+//        ofLog( OF_LOG_VERBOSE, "connect: "+options.host+":"+ofToString(options.port)+options.channel+":"+ofToString(options.bUseSSL) );
         address = options.host;
         port    = options.port;  
         channel = options.channel;
@@ -199,11 +216,13 @@ namespace ofxLibwebsockets {
         //                                      &lws_protocols[0], libwebsocket_internal_extensions,
         //                                      NULL, NULL, /*NULL,*/ -1, -1, 0, NULL);
         if (context == NULL){
-            std::cerr << "libwebsocket init failed" << std::endl;
+          ofxLogError() << "libwebsocket init failed" << endl;
+//            std::cerr << "libwebsocket init failed" << std::endl;
             return false;
-        } else {      
-            std::cerr << "libwebsocket init success" << std::endl;  
-            
+        } else {
+          ofxLogVerbose() << "libwebsocket init success" << endl;
+//            std::cerr << "libwebsocket init success" << std::endl;  
+          
             string host = options.host +":"+ ofToString( options.port );
             
             // register with or without a protocol
@@ -299,4 +318,5 @@ namespace ofxLibwebsockets {
             }
         }
     }
+
 }

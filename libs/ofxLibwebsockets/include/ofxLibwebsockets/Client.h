@@ -10,6 +10,7 @@
 
 #include <libwebsockets.h>
 #include "ofxLibwebsockets/Reactor.h"
+#include "ofxLogger.h"
 
 namespace ofxLibwebsockets {
 
