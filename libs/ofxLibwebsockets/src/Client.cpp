@@ -237,15 +237,16 @@ namespace ofxLibwebsockets {
             }
                         
             if ( lwsconnection == NULL ){
-                std::cerr << "client connection failed" << std::endl;
+              ofxLogError()<<"client connection failed" << std::endl;
+//                std::cerr << "client connection failed" << std::endl;
                 return false;
             } else {
                 
                 connection = new Connection( (Reactor*) &context, &clientProtocol );
                 connection->ws = lwsconnection;
-                                                
-                std::cerr << "client connection success" << std::endl;
-                startThread(true, false); // blocking, non-verbose   
+                  ofxLogNotice()<<"client connection success" << std::endl;
+//                std::cerr << "client connection success" << std::endl;
+                startThread(true, false); // blocking, non-verbose
                 return true;
             }
         }
