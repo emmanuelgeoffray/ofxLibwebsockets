@@ -10,6 +10,7 @@
 
 #include <libwebsockets.h>
 #include "ofxLibwebsockets/Reactor.h"
+#include "ofxLogger.h"
 
 namespace ofxLibwebsockets {
 
@@ -20,17 +21,17 @@ namespace ofxLibwebsockets {
         string  channel;
         string  protocol;
         int     version;
-    };
     
-    static ClientOptions defaultClientOptions(){
-        ClientOptions opts;
-        opts.host     = "localhost";
-        opts.port     = 80;
-        opts.bUseSSL  = false;
-        opts.channel  = "/";
-        opts.protocol = "NULL";
-        opts.version  = -1;     //use latest version
-        return opts;
+      static ClientOptions defaultClientOptions(){
+          ClientOptions opts;
+          opts.host     = "localhost";
+          opts.port     = 80;
+          opts.bUseSSL  = false;
+          opts.channel  = "/";
+          opts.protocol = "NULL";
+          opts.version  = -1;     //use latest version
+          return opts;
+      }
     };
     
     class Client : public Reactor {

@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <string>
+#include "ofxLogger.h"
 
 namespace ofxLibwebsockets {
     
@@ -48,6 +49,7 @@ namespace ofxLibwebsockets {
         std::string getClientIP();
         std::string getClientName();
         
+        libwebsocket_context* context;
         libwebsocket* ws;
         Reactor*  reactor;
         Protocol* protocol;

@@ -25,7 +25,8 @@ namespace ofxLibwebsockets {
         void exit();
         
         // methods
-        void close(Connection* const conn);
+        virtual void close() = 0; // close main ws connection (or close server)
+        void close(Connection* const conn); // close a specific connection
         void registerProtocol(const std::string& name, Protocol& protocol);
         
         // parse JSON automatically? (true by default)
@@ -40,7 +41,7 @@ namespace ofxLibwebsockets {
         std::vector<std::pair<std::string, Protocol*> > protocols;
         
         //private:
-        unsigned int _allow(Protocol* const protocol, const long fd);
+        unsigned int _allow(struct libwebsocket *ws, Protocol* const protocol, const long fd);
         
         unsigned int _notify(Connection* conn, enum libwebsocket_callback_reasons const reason,
                              const char* const _message, const unsigned int len);
@@ -54,6 +55,8 @@ namespace ofxLibwebsockets {
         
         bool            bReceivingLargeMessage;
         std::string     largeMessage;
+
+        bool closeAndFree;
         
         virtual void threadedFunction(){};  
         
