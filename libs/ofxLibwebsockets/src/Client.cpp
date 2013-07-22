@@ -69,9 +69,7 @@ namespace ofxLibwebsockets {
             } else {
             }
         }
-      
-//      ofxLogVerbose() << getClientCallbackReason(reason) << endl;
-        ofLog( OF_LOG_VERBOSE, getClientCallbackReason(reason) );
+        ofLog( OF_LOG_NOTICE, getClientCallbackReason(reason) );
         if (reason == LWS_CALLBACK_CLIENT_ESTABLISHED ){
         } else if (reason == LWS_CALLBACK_CLOSED){
         }
@@ -127,7 +125,6 @@ namespace ofxLibwebsockets {
       }
       ofxLogSetLogToFile(true, ofToDataPath("logs/"+logPath+".log"));
       ofxLogSetLogLineNumber(true);
-      ofxLogSetLogCaller(true);
       ofxLogSetLogOptions(LOG_USE_TIME | LOG_USE_CALL | LOG_USE_TYPE | LOG_USE_PADD | LOG_USE_FILE);
         context = NULL;
         connection = NULL;
