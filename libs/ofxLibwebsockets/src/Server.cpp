@@ -136,22 +136,6 @@ namespace ofxLibwebsockets {
 
     //--------------------------------------------------------------
     Server::Server(){
-      time_t rawtime;
-      struct tm * timeinfo;
-      char buffer [40];
-      time ( &rawtime );
-      timeinfo = localtime ( &rawtime );
-      strftime (buffer,40,"%Y-%m-%d",timeinfo);
-      string logPath=buffer;
-      ofxLogSetLogLevel(LOG_VERBOSE);
-      if (!ofDirectory("logs").exists()){
-        ofDirectory("logs").create(true);
-      }
-      ofxLogSetLogToFile(true, ofToDataPath("logs/"+logPath+".log"));
-      ofxLogSetLogLineNumber(true);
-      ofxLogSetLogCaller(true);
-      ofxLogSetLogOptions(LOG_USE_TIME | LOG_USE_CALL | LOG_USE_TYPE | LOG_USE_PADD | LOG_USE_FILE);
-      
         context = NULL;
         waitMillis = 50;
         reactors.push_back(this);
