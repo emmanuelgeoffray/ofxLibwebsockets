@@ -35,7 +35,7 @@ namespace ofxLibwebsockets {
         template <class T> 
         void sendBinary( T& image ){
             int size = image.width * image.height * image.getPixelsRef().getNumChannels();
-            cout<< size << endl;
+            //cout<< size << endl;
             sendBinary( (unsigned char *) image.getPixels(), size );
         }
         
