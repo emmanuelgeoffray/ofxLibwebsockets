@@ -61,9 +61,11 @@ linux64:
 	# binary libraries, these will be usually parsed from the file system but some 
 	# libraries need to passed to the linker in a specific order 
 	#nothing yet
+	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port
 	
 linux:
 	#nothing yet
+	ADDON_INCLUDES_EXCLUDE += libs/libwebsockets/include/win32port
 	
 win_cb:
 	#nothing yet

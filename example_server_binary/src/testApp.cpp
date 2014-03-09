@@ -11,7 +11,7 @@ void testApp::setup(){
     // made via libwebsockets seem to want a protocol. Hopefully this gets fixed, 
     // but until now you have to do something like this:
     
-    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::ServerOptions::defaultServerOptions();
     options.port = 9093;
     options.protocol = "of-protocol";
     options.bBinaryProtocol = true;

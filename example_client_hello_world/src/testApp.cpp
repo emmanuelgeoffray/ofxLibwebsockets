@@ -10,7 +10,7 @@ void testApp::setup(){
     // Uncomment this to connect to the server example!
     
     
-    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
+    ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::ClientOptions::defaultClientOptions();
     options.port = 9092; 
     bool connected = client.connect( options );
     

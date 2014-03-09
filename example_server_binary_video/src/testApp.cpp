@@ -15,7 +15,7 @@ void testApp::setup(){
     video.listDevices();
     bVideoSetup = video.initGrabber( 320, 240 );
     
-    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::ServerOptions::defaultServerOptions();
     options.port = 9093;
     options.protocol = "of-protocol";
     bool connected = server.setup( options );

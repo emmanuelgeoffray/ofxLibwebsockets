@@ -34,19 +34,19 @@ namespace ofxLibwebsockets {
         string  sslKeyPath;         // data path to ssl key
         
         string  documentRoot;       // where your hosted files are (libwebsockets sets up a minimal webserver)
-    };
     
-    static ServerOptions defaultServerOptions(){
-        ServerOptions opts;
-        opts.port     = 80;
-        opts.protocol = "NULL";
-        opts.bUseSSL  = false;
-        opts.bBinaryProtocol = false;
-        opts.sslCertPath = ofToDataPath("ssl/libwebsockets-test-server.pem", true);
-        opts.sslKeyPath = ofToDataPath("ssl/libwebsockets-test-server.key.pem", true);
-        opts.documentRoot = ofToDataPath("web", true);
-        return opts;
-    }
+      static ServerOptions defaultServerOptions(){
+          ServerOptions opts;
+          opts.port     = 80;
+          opts.protocol = "NULL";
+          opts.bUseSSL  = false;
+          opts.bBinaryProtocol = false;
+          opts.sslCertPath = ofToDataPath("ssl/libwebsockets-test-server.pem", true);
+          opts.sslKeyPath = ofToDataPath("ssl/libwebsockets-test-server.key.pem", true);
+          opts.documentRoot = ofToDataPath("web", true);
+          return opts;
+      }
+    };
 
     class Server : public Reactor {
         friend class Protocol;
